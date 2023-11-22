@@ -22,27 +22,6 @@ namespace FoodTotem.Payment.UseCase.UseCases
             _mercadoPagoPaymentService = mercadoPagoPaymentService;
         }
 
-        public async Task<PaymentViewModel> GetPayment(string id)
-        {
-            var payment = await _paymentRepository.Get(id);
-
-            if (payment == null)
-            {
-                throw new Exception("Payment not found");
-            }
-
-            var paymentViewModel = new PaymentViewModel
-            {
-                Id = payment.Id.ToString(),
-                OrderReference = payment.OrderReference,
-                ExpirationDate = payment.ExpirationDate,
-                QRCode = payment.QRCode,
-                Total = payment.Total
-            };
-
-            return paymentViewModel;
-        }
-
         public async Task<PaymentViewModel> GetPaymentByOrderReference(string orderReference)
         {
             var payment = await _paymentRepository.GetPayment(orderReference);

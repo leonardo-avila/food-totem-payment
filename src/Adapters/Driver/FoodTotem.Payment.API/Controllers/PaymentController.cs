@@ -25,29 +25,6 @@ public class PaymentController : ControllerBase
     }
 
     /// <summary>
-    /// Get payment by id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns>Returns the payment with the specified id</returns>
-    /// <response code="204">No payment with the specified id was found.</response>
-    [HttpGet("{id}", Name = "Get payment by Id")]
-    public async Task<ActionResult<PaymentViewModel>> GetById(string id)
-    {
-        try
-        {
-            return Ok(await _paymentUseCases.GetPayment(id));
-        }
-        catch (DomainException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving payment.");
-        }
-    }
-
-    /// <summary>
     /// Get payment by order reference
     /// </summary>
     /// <param name="orderReference"></param>
