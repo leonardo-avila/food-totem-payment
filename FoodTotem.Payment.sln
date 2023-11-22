@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D06D2017-F3C5-4113-B7E3-93D4C16FD78B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{518140F4-E732-40CC-B790-DACE3C63EAB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driven", "Driven", "{B22B2BB8-A350-4DAC-9081-20E6D961C107}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Payment.Gateways.Http", "src\Adapters\Driven\FoodTotem.Payment.Gateways.Http\FoodTotem.Payment.Gateways.Http.csproj", "{FA60C927-2866-42A1-A78D-A8CCFAD21AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Payment.Gateways.MongoDB", "src\Adapters\Driven\FoodTotem.Payment.Gateways.MongoDB\FoodTotem.Payment.Gateways.MongoDB.csproj", "{3AFDA70D-B5EA-4C3C-863F-6B10D4E3A9CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driver", "Driver", "{99A0252E-F85A-4599-B56A-FF539D83F78F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Payment.API", "src\Adapters\Driver\FoodTotem.Payment.API\FoodTotem.Payment.API.csproj", "{EA6A1651-3950-4DD7-82DE-8722B1F8CBF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1F1AE0EE-BDFF-43F7-846D-98D8D53C1A2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Payment.Domain", "src\Core\FoodTotem.Payment.Domain\FoodTotem.Payment.Domain.csproj", "{9E261E14-3B4F-485E-BEB4-7095A6E80EC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Payment.UseCase", "src\Core\FoodTotem.Payment.UseCase\FoodTotem.Payment.UseCase.csproj", "{BC319C41-751B-4C45-9F22-B549B2B5D3E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Domain.Core", "src\Core\FoodTotem.Domain.Core\FoodTotem.Domain.Core.csproj", "{1F2C15C4-4565-4128-9E51-E58FE7FBB695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Data.Core", "src\Core\FoodTotem.Data.Core\FoodTotem.Data.Core.csproj", "{D73CE0CA-ACF7-425E-A07A-3ACD5AEFAB76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTotem.Payment.Gateways.MercadoPago", "src\Adapters\Driven\FoodTotem.Payment.Gateways.MercadoPago\FoodTotem.Payment.Gateways.MercadoPago.csproj", "{60742CDB-2427-4D44-AC3A-F3C5D66AB2EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA60C927-2866-42A1-A78D-A8CCFAD21AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA60C927-2866-42A1-A78D-A8CCFAD21AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA60C927-2866-42A1-A78D-A8CCFAD21AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA60C927-2866-42A1-A78D-A8CCFAD21AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AFDA70D-B5EA-4C3C-863F-6B10D4E3A9CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AFDA70D-B5EA-4C3C-863F-6B10D4E3A9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AFDA70D-B5EA-4C3C-863F-6B10D4E3A9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AFDA70D-B5EA-4C3C-863F-6B10D4E3A9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6A1651-3950-4DD7-82DE-8722B1F8CBF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6A1651-3950-4DD7-82DE-8722B1F8CBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6A1651-3950-4DD7-82DE-8722B1F8CBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6A1651-3950-4DD7-82DE-8722B1F8CBF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E261E14-3B4F-485E-BEB4-7095A6E80EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E261E14-3B4F-485E-BEB4-7095A6E80EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E261E14-3B4F-485E-BEB4-7095A6E80EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E261E14-3B4F-485E-BEB4-7095A6E80EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC319C41-751B-4C45-9F22-B549B2B5D3E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC319C41-751B-4C45-9F22-B549B2B5D3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC319C41-751B-4C45-9F22-B549B2B5D3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC319C41-751B-4C45-9F22-B549B2B5D3E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F2C15C4-4565-4128-9E51-E58FE7FBB695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2C15C4-4565-4128-9E51-E58FE7FBB695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F2C15C4-4565-4128-9E51-E58FE7FBB695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F2C15C4-4565-4128-9E51-E58FE7FBB695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D73CE0CA-ACF7-425E-A07A-3ACD5AEFAB76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D73CE0CA-ACF7-425E-A07A-3ACD5AEFAB76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D73CE0CA-ACF7-425E-A07A-3ACD5AEFAB76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D73CE0CA-ACF7-425E-A07A-3ACD5AEFAB76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60742CDB-2427-4D44-AC3A-F3C5D66AB2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60742CDB-2427-4D44-AC3A-F3C5D66AB2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60742CDB-2427-4D44-AC3A-F3C5D66AB2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60742CDB-2427-4D44-AC3A-F3C5D66AB2EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{518140F4-E732-40CC-B790-DACE3C63EAB3} = {D06D2017-F3C5-4113-B7E3-93D4C16FD78B}
+		{B22B2BB8-A350-4DAC-9081-20E6D961C107} = {518140F4-E732-40CC-B790-DACE3C63EAB3}
+		{FA60C927-2866-42A1-A78D-A8CCFAD21AAB} = {B22B2BB8-A350-4DAC-9081-20E6D961C107}
+		{3AFDA70D-B5EA-4C3C-863F-6B10D4E3A9CE} = {B22B2BB8-A350-4DAC-9081-20E6D961C107}
+		{99A0252E-F85A-4599-B56A-FF539D83F78F} = {518140F4-E732-40CC-B790-DACE3C63EAB3}
+		{EA6A1651-3950-4DD7-82DE-8722B1F8CBF1} = {99A0252E-F85A-4599-B56A-FF539D83F78F}
+		{1F1AE0EE-BDFF-43F7-846D-98D8D53C1A2D} = {D06D2017-F3C5-4113-B7E3-93D4C16FD78B}
+		{9E261E14-3B4F-485E-BEB4-7095A6E80EC4} = {1F1AE0EE-BDFF-43F7-846D-98D8D53C1A2D}
+		{BC319C41-751B-4C45-9F22-B549B2B5D3E9} = {1F1AE0EE-BDFF-43F7-846D-98D8D53C1A2D}
+		{1F2C15C4-4565-4128-9E51-E58FE7FBB695} = {1F1AE0EE-BDFF-43F7-846D-98D8D53C1A2D}
+		{D73CE0CA-ACF7-425E-A07A-3ACD5AEFAB76} = {1F1AE0EE-BDFF-43F7-846D-98D8D53C1A2D}
+		{60742CDB-2427-4D44-AC3A-F3C5D66AB2EB} = {B22B2BB8-A350-4DAC-9081-20E6D961C107}
+	EndGlobalSection
+EndGlobal

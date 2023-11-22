@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\foodtotem.payment.domain\FoodTotem.Payment.Domain.csproj" />
+    <ProjectReference Include="..\..\Adapters\Driven\FoodTotem.Payment.Gateways.MercadoPago\FoodTotem.Payment.Gateways.MercadoPago.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoWarn>8618</NoWarn>
+  </PropertyGroup>
+
+</Project>
