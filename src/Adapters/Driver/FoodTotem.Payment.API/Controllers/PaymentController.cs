@@ -13,15 +13,12 @@ public class PaymentController : ControllerBase
 {
     private readonly ILogger<PaymentController> _logger;
     private readonly IPaymentUseCases _paymentUseCases;
-    private readonly IMercadoPagoPaymentService _mercadoPagoPaymentService;
 
     public PaymentController(ILogger<PaymentController> logger,
-        IPaymentUseCases orderUseCases,
-        IMercadoPagoPaymentService mercadoPagoPaymentService)
+        IPaymentUseCases orderUseCases)
     {
         _logger = logger;
         _paymentUseCases = orderUseCases;
-        _mercadoPagoPaymentService = mercadoPagoPaymentService;
     }
 
     /// <summary>
