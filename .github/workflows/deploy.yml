@@ -19,7 +19,7 @@ jobs:
       with:
         files: src/Adapters/Driver/FoodTotem.Payment.API/appsettings.json
       env:
-        ConnectionStrings.DefaultConnection: ${{ secrets.DOCUMENT_DB_CONNECTION_STRING }}
+        PaymentDatabaseSettings.ConnectionString: ${{ secrets.DOCUMENT_DB_CONNECTION_STRING }}
  
     - name: Login to Docker Hub
       if: github.ref == 'refs/heads/main'
