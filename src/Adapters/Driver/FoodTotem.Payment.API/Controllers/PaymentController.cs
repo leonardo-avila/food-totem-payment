@@ -13,38 +13,12 @@ public class PaymentController : ControllerBase
 {
     private readonly ILogger<PaymentController> _logger;
     private readonly IPaymentUseCases _paymentUseCases;
-    private readonly IMercadoPagoPaymentService _mercadoPagoPaymentService;
 
     public PaymentController(ILogger<PaymentController> logger,
-        IPaymentUseCases orderUseCases,
-        IMercadoPagoPaymentService mercadoPagoPaymentService)
+        IPaymentUseCases orderUseCases)
     {
         _logger = logger;
         _paymentUseCases = orderUseCases;
-        _mercadoPagoPaymentService = mercadoPagoPaymentService;
-    }
-
-    /// <summary>
-    /// Get payment by id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns>Returns the payment with the specified id</returns>
-    /// <response code="204">No payment with the specified id was found.</response>
-    [HttpGet("{id}", Name = "Get payment by Id")]
-    public async Task<ActionResult<PaymentViewModel>> GetById(string id)
-    {
-        try
-        {
-            return Ok(await _paymentUseCases.GetPayment(id));
-        }
-        catch (DomainException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving payment.");
-        }
     }
 
     /// <summary>

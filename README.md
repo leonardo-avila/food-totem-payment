@@ -1,4 +1,4 @@
-# Food Totem Catalog
+# Food Totem Payment
 
 
 This is a repository to maintain the payment of Food Totem project. It is a microservice that provides the payments of products bought by customers. It is a REST API, accessible through HTTP requests by the API Gateway configured on another repository.
