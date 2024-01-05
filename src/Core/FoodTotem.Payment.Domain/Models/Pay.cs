@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using FoodTotem.Domain.Core;
 
 namespace FoodTotem.Payment.Domain.Models
@@ -10,6 +11,7 @@ namespace FoodTotem.Payment.Domain.Models
         public string QRCode { get; private set; }
         public double Total { get; private set; } 
 
+        [ExcludeFromCodeCoverage]
         public Pay(string orderReference, string expirationDate, string qRCode, double total)
         {
             OrderReference = orderReference;
