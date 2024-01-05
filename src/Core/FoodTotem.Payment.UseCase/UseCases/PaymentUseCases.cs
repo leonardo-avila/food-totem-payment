@@ -6,6 +6,7 @@ using FoodTotem.Payment.Domain.Ports;
 using FoodTotem.Payment.Domain.Repositories;
 using FoodTotem.Payment.UseCase.InputViewModels;
 using FoodTotem.Payment.UseCase.OutputViewModels;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FoodTotem.Payment.UseCase.UseCases
 {
@@ -24,13 +25,8 @@ namespace FoodTotem.Payment.UseCase.UseCases
 
         public async Task<PaymentViewModel> GetPaymentByOrderReference(string orderReference)
         {
-            var payment = await _paymentRepository.GetPayment(orderReference);
-
-            if (payment == null)
-            {
-                throw new Exception("Payment not found");
-            }
-
+            var payment = await _paymentRepository.GetPayment(orderReference) ?? throw new Exception("Payment not found");
+            
             var paymentViewModel = new PaymentViewModel
             {
                 Id = payment.Id.ToString(),
@@ -98,7 +94,8 @@ namespace FoodTotem.Payment.UseCase.UseCases
             return paymentViewModel;
         }
 
-        private PaymentInformationViewModel ProducePaymentInformationViewModel(OrderViewModel orderViewModel)
+        [ExcludeFromCodeCoverage]
+        private static PaymentInformationViewModel ProducePaymentInformationViewModel(OrderViewModel orderViewModel)
         {
             var expiration = DateTimeOffset.Now.AddMinutes(30).ToString("yyyy-MM-ddTHH:mm:ss.fffK");
             return new PaymentInformationViewModel()
@@ -112,7 +109,8 @@ namespace FoodTotem.Payment.UseCase.UseCases
             };
         }
 
-        private IEnumerable<PaymentItemViewModel> ProducePaymentItemViewModelCollection(IEnumerable<OrderItemViewModel> orderItemViewModel)
+        [ExcludeFromCodeCoverage]
+        private static IEnumerable<PaymentItemViewModel> ProducePaymentItemViewModelCollection(IEnumerable<OrderItemViewModel> orderItemViewModel)
         {
             foreach (var orderItem in orderItemViewModel)
             {
