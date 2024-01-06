@@ -1,5 +1,6 @@
 namespace FoodTotem.Payment.Gateways.MercadoPago.ViewModels
 {
+	[ExcludeFromCodeCoverage]
 	public class PaymentItemViewModel
 	{
 		public string sku_number { get; set; }

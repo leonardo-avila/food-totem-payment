@@ -7,7 +7,6 @@ namespace FoodTotem.Payment.Gateways.MercadoPago
     public class MercadoPagoPaymentService : IMercadoPagoPaymentService
     {
         private readonly IHttpHandler _httpHandler;
-        private readonly IConfiguration _configuration;
 
         private readonly string ACCESS_TOKEN;
         private readonly string EXTERNAL_POS_ID;
@@ -17,12 +16,11 @@ namespace FoodTotem.Payment.Gateways.MercadoPago
         public MercadoPagoPaymentService(IHttpHandler httpHandler, IConfiguration configuration)
         {
             _httpHandler = httpHandler;
-            _configuration = configuration;
-
-            ACCESS_TOKEN = _configuration["AccessToken"];
-            EXTERNAL_POS_ID = _configuration["ExternalPosId"];
-            USER_ID = _configuration["UserId"];
-            BASE_URL = _configuration["BaseUrl"];
+            
+            ACCESS_TOKEN = configuration["AccessToken"];
+            EXTERNAL_POS_ID = configuration["ExternalPosId"];
+            USER_ID = configuration["UserId"];
+            BASE_URL = configuration["BaseUrl"];
         }
 
         public Task<QRCodeViewModel> GetPaymentQRCode(PaymentInformationViewModel paymentInformationViewModel)

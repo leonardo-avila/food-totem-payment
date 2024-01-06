@@ -1,5 +1,4 @@
 using FoodTotem.Domain.Core;
-using FoodTotem.Payment.Gateways.MercadoPago;
 using FoodTotem.Payment.UseCase.InputViewModels;
 using FoodTotem.Payment.UseCase.OutputViewModels;
 using FoodTotem.Payment.UseCase.Ports;
@@ -11,13 +10,10 @@ namespace FoodTotem.Payment.API.Controllers;
 [Route("api/[controller]")]
 public class PaymentController : ControllerBase
 {
-    private readonly ILogger<PaymentController> _logger;
     private readonly IPaymentUseCases _paymentUseCases;
 
-    public PaymentController(ILogger<PaymentController> logger,
-        IPaymentUseCases orderUseCases)
+    public PaymentController(IPaymentUseCases orderUseCases)
     {
-        _logger = logger;
         _paymentUseCases = orderUseCases;
     }
 

@@ -42,7 +42,7 @@ public class PaymentUseCasesTests
     public async Task GetPayment_WithKnownOrderReference_ShouldReturnPayment()
     {
         MockGetPaymentByOrderReference(_paymentRepository);
-        await Assert.ThrowsExceptionAsync<Exception>(async () => await _paymentUseCases.GetPaymentByOrderReference("12"));
+        await Assert.ThrowsExceptionAsync<DomainException>(async () => await _paymentUseCases.GetPaymentByOrderReference("12"));
     }
 
     [TestMethod, TestCategory("UseCase - Payment")]
@@ -84,7 +84,7 @@ public class PaymentUseCasesTests
             Total = 10.0
         };
 
-        await Assert.ThrowsExceptionAsync<Exception>(async () => await _paymentUseCases.CreatePayment(order));
+        await Assert.ThrowsExceptionAsync<DomainException>(async () => await _paymentUseCases.CreatePayment(order));
     }
 
     [TestMethod, TestCategory("UseCase - Payment")]
@@ -97,7 +97,7 @@ public class PaymentUseCasesTests
             Total = 10.0
         };
 
-        await Assert.ThrowsExceptionAsync<Exception>(async () => await _paymentUseCases.CreatePayment(order));
+        await Assert.ThrowsExceptionAsync<DomainException>(async () => await _paymentUseCases.CreatePayment(order));
     }
 
     private static void MockGetPaymentByOrderReference(IPaymentRepository paymentRepository)

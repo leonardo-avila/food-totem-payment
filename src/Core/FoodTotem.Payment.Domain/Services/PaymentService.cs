@@ -14,9 +14,9 @@ namespace FoodTotem.Payment.Domain.Services
             _payValidator = payValidator;
         }
 
-		public bool IsValidPayment(Pay pay)
+		public bool IsValidPayment(Pay payment)
 		{
-            var validationResult = _payValidator.Validate(pay);
+            var validationResult = _payValidator.Validate(payment);
             if (!validationResult.IsValid) throw new DomainException(validationResult.ToString());
             
             return true;

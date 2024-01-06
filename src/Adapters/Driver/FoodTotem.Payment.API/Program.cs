@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using FoodTotem.Payment.API.Setup;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);

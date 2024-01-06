@@ -1,5 +1,6 @@
 namespace FoodTotem.Payment.UseCase.InputViewModels
 {
+    [ExcludeFromCodeCoverage]
     public class OrderItemViewModel
     {
         public string ItemId { get; set; }
