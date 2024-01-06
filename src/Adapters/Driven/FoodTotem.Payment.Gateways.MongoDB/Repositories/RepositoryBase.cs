@@ -12,7 +12,8 @@ namespace FoodTotem.Payment.Gateways.MongoDB.Repositories
 	{
         private readonly IMongoCollection<TDocument> _collection;
 
-		public RepositoryBase(IConfiguration configuration)
+        [ExcludeFromCodeCoverage]
+		protected RepositoryBase(IConfiguration configuration)
         {
             var settings = configuration.GetSection("PaymentDatabaseSettings").Get<PaymentDatabaseSettings>();
             var client = new MongoClient(settings.ConnectionString);

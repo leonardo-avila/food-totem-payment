@@ -1,5 +1,6 @@
 namespace FoodTotem.Payment.Gateways.MercadoPago.ViewModels
 {
+	[ExcludeFromCodeCoverage]
 	public class PaymentInformationViewModel
 	{
 		public string external_reference { get; set; }

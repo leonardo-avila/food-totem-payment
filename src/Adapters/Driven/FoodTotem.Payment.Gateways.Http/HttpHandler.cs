@@ -3,6 +3,7 @@ using System.Text;
 
 namespace FoodTotem.Payment.Gateways.Http
 {
+    [ExcludeFromCodeCoverage]
 	public class HttpHandler : IHttpHandler
 	{
         private readonly HttpClient _httpClient;
@@ -14,7 +15,7 @@ namespace FoodTotem.Payment.Gateways.Http
 
         public async Task<T> GetAsync<T>(string url, Dictionary<string, string> headers)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+            HttpRequestMessage request = new(HttpMethod.Get, url);
             AddHeadersToRequest(request, headers);
 
             HttpResponseMessage response = await _httpClient.SendAsync(request);
@@ -29,8 +30,10 @@ namespace FoodTotem.Payment.Gateways.Http
         public async Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest data, Dictionary<string, string> headers)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Content = content;
+            HttpRequestMessage request = new(HttpMethod.Post, url)
+            {
+                Content = content
+            };
             AddHeadersToRequest(request, headers);
 
             HttpResponseMessage response = await _httpClient.SendAsync(request);
@@ -45,8 +48,10 @@ namespace FoodTotem.Payment.Gateways.Http
         public async Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest data, Dictionary<string, string> headers)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, url);
-            request.Content = content;
+            HttpRequestMessage request = new(HttpMethod.Put, url)
+            {
+                Content = content
+            };
             AddHeadersToRequest(request, headers);
 
             HttpResponseMessage response = await _httpClient.SendAsync(request);
@@ -60,7 +65,7 @@ namespace FoodTotem.Payment.Gateways.Http
 
         public async Task<string> DeleteAsync(string url, Dictionary<string, string> headers)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, url);
+            HttpRequestMessage request = new(HttpMethod.Delete, url);
             AddHeadersToRequest(request, headers);
 
             HttpResponseMessage response = await _httpClient.SendAsync(request);
@@ -68,7 +73,7 @@ namespace FoodTotem.Payment.Gateways.Http
             return await response.Content.ReadAsStringAsync();
         }
 
-        private void AddHeadersToRequest(HttpRequestMessage request, Dictionary<string, string> headers)
+        private static void AddHeadersToRequest(HttpRequestMessage request, Dictionary<string, string> headers)
         {
             if (headers != null)
             {

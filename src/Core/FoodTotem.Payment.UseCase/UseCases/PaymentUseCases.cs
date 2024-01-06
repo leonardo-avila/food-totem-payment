@@ -6,7 +6,7 @@ using FoodTotem.Payment.Domain.Ports;
 using FoodTotem.Payment.Domain.Repositories;
 using FoodTotem.Payment.UseCase.InputViewModels;
 using FoodTotem.Payment.UseCase.OutputViewModels;
-using System.Diagnostics.CodeAnalysis;
+using FoodTotem.Domain.Core;
 
 namespace FoodTotem.Payment.UseCase.UseCases
 {
@@ -25,7 +25,7 @@ namespace FoodTotem.Payment.UseCase.UseCases
 
         public async Task<PaymentViewModel> GetPaymentByOrderReference(string orderReference)
         {
-            var payment = await _paymentRepository.GetPayment(orderReference) ?? throw new Exception("Payment not found");
+            var payment = await _paymentRepository.GetPayment(orderReference) ?? throw new DomainException("Payment not found");
             
             var paymentViewModel = new PaymentViewModel
             {
@@ -72,14 +72,14 @@ namespace FoodTotem.Payment.UseCase.UseCases
 
             if (!validPayment)
             {
-                throw new Exception("Invalid payment");
+                throw new DomainException("Invalid payment");
             }
 
             var succesfullySaved = await _paymentRepository.SavePayment(payment);
 
             if (!succesfullySaved)
             {
-                throw new Exception("An error occurred while saving the payment");
+                throw new DomainException("An error occurred while saving the payment");
             }
 
             var paymentViewModel = new PaymentViewModel
