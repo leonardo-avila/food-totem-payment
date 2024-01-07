@@ -53,10 +53,6 @@ public class PaymentController : ControllerBase
         {
             return Ok(await _paymentUseCases.GetPayments());
         }
-        catch (DomainException ex)
-        {
-            return BadRequest(ex.Message);
-        }
         catch
         {
             return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving payment.");
