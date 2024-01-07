@@ -12,3 +12,8 @@ Scenario: Failed payment creation due to domain exception
     Given I have an payment that will cause a domain exception
     When I create a payment for the order
     Then I should receive a bad request response
+
+Scenario: Failed payment creation due to internal error
+    Given I have an payment that will cause an internal error
+    When I create a payment for the order
+    Then I should receive an internal error response

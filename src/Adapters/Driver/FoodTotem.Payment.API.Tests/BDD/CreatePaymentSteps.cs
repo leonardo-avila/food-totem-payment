@@ -37,6 +37,12 @@ public class CreatePaymentSteps
         _paymentUseCases.CreatePayment(_order).Returns<PaymentViewModel>(x => throw new DomainException("Invalid payment"));
     }
 
+    [Given(@"I have an payment that will cause an internal error")]
+    public void GivenIHaveAnOrderThatWillCauseAnInternalError()
+    {
+        _paymentUseCases.CreatePayment(_order).Returns<PaymentViewModel>(x => throw new Exception("An error occurred while saving the payment"));
+    }
+
     [When(@"I create a payment for the order")]
     public async Task WhenICreateAPaymentForTheOrder()
     {
@@ -53,5 +59,13 @@ public class CreatePaymentSteps
     public void ThenIShouldReceiveABadRequestResponse()
     {
         Assert.IsInstanceOfType(_result.Result, typeof(BadRequestObjectResult));
+    }
+
+    [Then(@"I should receive an internal error response")]
+    public void ThenIShouldReceiveAnInternalServerErrorResponse()
+    {
+        Assert.IsInstanceOfType(_result.Result, typeof(ObjectResult));
+        var result = _result.Result as ObjectResult;
+        Assert.AreEqual(500, result!.StatusCode);
     }
 }
