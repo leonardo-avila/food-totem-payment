@@ -402,3 +402,12 @@ FodyWeavers.xsd
 
 # DS_Store
 .DS_Store
+
+# SpecFlow temporary files
+*.feature.cs
+
+# SpecFlow report files
+TestResult.html
+
+# SpecFlow user id
+userid

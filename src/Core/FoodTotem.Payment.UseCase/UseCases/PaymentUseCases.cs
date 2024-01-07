@@ -1,12 +1,12 @@
 using FoodTotem.Payment.UseCase.Ports;
 using FoodTotem.Payment.Gateways.MercadoPago;
-using FoodTotem.Payment.Gateways.MercadoPago.ViewModels;
 using FoodTotem.Payment.Domain.Models;
 using FoodTotem.Payment.Domain.Ports;
 using FoodTotem.Payment.Domain.Repositories;
 using FoodTotem.Payment.UseCase.InputViewModels;
 using FoodTotem.Payment.UseCase.OutputViewModels;
 using FoodTotem.Domain.Core;
+using FoodTotem.Payment.UseCase.Utils;
 
 namespace FoodTotem.Payment.UseCase.UseCases
 {
@@ -62,7 +62,7 @@ namespace FoodTotem.Payment.UseCase.UseCases
         public async Task<PaymentViewModel> CreatePayment(OrderViewModel order)
         {
             
-            var paymentInfo = ProducePaymentInformationViewModel(order);
+            var paymentInfo = PaymentUtils.ProducePaymentInformationViewModel(order);
 
             var paymentData = await _mercadoPagoPaymentService.GetPaymentQRCode(paymentInfo);
 
@@ -92,38 +92,6 @@ namespace FoodTotem.Payment.UseCase.UseCases
             };
 
             return paymentViewModel;
-        }
-
-        [ExcludeFromCodeCoverage]
-        private static PaymentInformationViewModel ProducePaymentInformationViewModel(OrderViewModel orderViewModel)
-        {
-            var expiration = DateTimeOffset.Now.AddMinutes(30).ToString("yyyy-MM-ddTHH:mm:ss.fffK");
-            return new PaymentInformationViewModel()
-            {
-                expiration_date = $"{expiration}",
-                total_amount = orderViewModel.Total,
-                external_reference = orderViewModel.OrderReference,
-                title = "Food Totem Order",
-                items = ProducePaymentItemViewModelCollection(orderViewModel.OrderItems),
-                description = $"Food Totem Order{orderViewModel.OrderReference}"
-            };
-        }
-
-        [ExcludeFromCodeCoverage]
-        private static IEnumerable<PaymentItemViewModel> ProducePaymentItemViewModelCollection(IEnumerable<OrderItemViewModel> orderItemViewModel)
-        {
-            foreach (var orderItem in orderItemViewModel)
-            {
-                yield return new PaymentItemViewModel()
-                {
-                    sku_number = orderItem.ItemId,
-                    unit_measure = "unit",
-                    unit_price = orderItem.Price,
-                    quantity = orderItem.Quantity,
-                    total_amount = orderItem.Price * orderItem.Quantity,
-                    title = "Food"
-                };
-            }
         }
     }
 }

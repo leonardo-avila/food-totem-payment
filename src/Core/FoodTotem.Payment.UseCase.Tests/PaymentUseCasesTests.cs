@@ -7,6 +7,7 @@ using FoodTotem.Payment.Gateways.MercadoPago.ViewModels;
 using FoodTotem.Payment.UseCase.InputViewModels;
 using FoodTotem.Payment.UseCase.Ports;
 using FoodTotem.Payment.UseCase.UseCases;
+using FoodTotem.Payment.UseCase.Utils;
 using NSubstitute;
 
 namespace FoodTotem.Payment.UseCase.Tests;
@@ -98,6 +99,34 @@ public class PaymentUseCasesTests
         };
 
         await Assert.ThrowsExceptionAsync<DomainException>(async () => await _paymentUseCases.CreatePayment(order));
+    }
+
+    [TestMethod, TestCategory("UseCase - Payment")]
+    public void ProducePaymentInformation_WithOrder_ShouldSucceed() {
+        var order = new OrderViewModel() {
+            OrderReference = "1234",
+            Total = 10.0,
+            OrderItems = new List<OrderItemViewModel>() {
+                new() {
+                    ItemId = "123",
+                    Price = 10.0,
+                    Quantity = 1
+                }
+            }
+        };
+
+        var paymentInformation = PaymentUtils.ProducePaymentInformationViewModel(order);
+
+        Assert.IsNotNull(paymentInformation);
+        Assert.AreEqual("Food Totem Order", paymentInformation.title);
+        Assert.AreEqual("Food Totem Order 1234", paymentInformation.description);
+        Assert.AreEqual(10.0, paymentInformation.total_amount);
+        Assert.AreEqual("1234", paymentInformation.external_reference);
+        Assert.AreEqual("unit", paymentInformation.items.FirstOrDefault()!.unit_measure);
+        Assert.AreEqual(10.0, paymentInformation.items.FirstOrDefault()!.unit_price);
+        Assert.AreEqual(1, paymentInformation.items.FirstOrDefault()!.quantity);
+        Assert.AreEqual(10.0, paymentInformation.items.FirstOrDefault()!.total_amount);
+        Assert.AreEqual("Food", paymentInformation.items.FirstOrDefault()!.title);
     }
 
     private static void MockGetPaymentByOrderReference(IPaymentRepository paymentRepository)
