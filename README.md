@@ -1,6 +1,7 @@
 # Food Totem Payment
 [![build](https://github.com/leonardo-avila/food-totem-payment/actions/workflows/build.yml/badge.svg)](https://github.com/leonardo-avila/food-totem-payment/actions/workflows/build.yml)
 [![deploy](https://github.com/leonardo-avila/food-totem-payment/actions/workflows/deploy.yml/badge.svg)](https://github.com/leonardo-avila/food-totem-payment/actions/workflows/deploy.yml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=leonardo-avila_food-totem-payment&metric=coverage)](https://sonarcloud.io/summary/new_code?id=leonardo-avila_food-totem-payment)
 
 This is a repository to maintain the payment of Food Totem project. It is a microservice that provides the payments of products bought by customers. It is a REST API, accessible through HTTP requests by the API Gateway configured on another repository.
 
