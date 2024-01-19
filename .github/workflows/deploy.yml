@@ -61,7 +61,10 @@ jobs:
       with:
         files: src/Adapters/Driver/FoodTotem.Payment.API/appsettings.json
       env:
-        PaymentDatabaseSettings.ConnectionString: ${{ secrets.DOCUMENT_DB_CONNECTION_STRING }}
+        AccessToken: ${{ secrets.MERCADO_PAGO_ACCESS_TOKEN }}
+        ExternalPosId: ${{ secrets.MERCADO_PAGO_EXTERNAL_POS_ID }}
+        UserId: ${{ secrets.MERCADO_PAGO_USER_ID }}
+        BaseUrl: ${{ secrets.MERCADO_PAGO_API_URL }}
  
     - name: Login to Docker Hub
       if: github.ref == 'refs/heads/main'
