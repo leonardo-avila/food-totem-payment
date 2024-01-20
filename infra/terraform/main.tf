@@ -39,7 +39,7 @@ resource "aws_lb_target_group" "payment-mongodb-tg" {
 }
 
 resource "aws_lb" "payment-mongodb-lb" {
-  name               = "mongodb"
+  name               = "payment-mongodb"
   internal           = true
   load_balancer_type = "network"
   subnets            = data.aws_subnets.default.ids
@@ -59,22 +59,32 @@ resource "aws_lb_listener" "payment-mongodb-lbl" {
 resource "aws_lb_target_group" "payment-api-tg" {
   name     = "payment-api"
   port     = 8080
-  protocol = "TCP"
+  protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id
   target_type = "ip"
+
+  health_check {
+    enabled = true
+    interval = 300
+    path = "/health-check"
+    protocol = "HTTP"
+    timeout = 60
+    healthy_threshold = 3
+    unhealthy_threshold = 3
+  }
 }
 
 resource "aws_lb" "payment-api-lb" {
   name               = "payment-api"
   internal           = true
-  load_balancer_type = "network"
+  load_balancer_type = "application"
   subnets            = data.aws_subnets.default.ids
 }
 
 resource "aws_lb_listener" "payment-api-lbl" {
   load_balancer_arn = aws_lb.payment-api-lb.arn
-  port              = 8080
-  protocol          = "TCP"
+  port              = 80
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"
@@ -183,6 +193,8 @@ resource "aws_ecs_service" "food-totem-payment-mongodb-service" {
     container_name   = "food-totem-payment-mongodb"
     container_port   = 27017
   }
+
+  health_check_grace_period_seconds = 120
 }
 
 resource "aws_ecs_service" "food-totem-payment-service" {
@@ -203,6 +215,8 @@ resource "aws_ecs_service" "food-totem-payment-service" {
     container_name   = "food-totem-payment"
     container_port   = 8080
   }
+
+  health_check_grace_period_seconds = 120
 }
 
 resource "aws_cloudwatch_log_group" "food-totem-payment-logs" {
