@@ -121,4 +121,4 @@ jobs:
         TF_VAR_food_totem_payment_image: ${{ secrets.PAYMENT_IMAGE }}
         TF_VAR_mongo_image: ${{ secrets.MONGO_IMAGE }}
         TF_VAR_mongo_root_password: ${{ secrets.MONGO_ROOT_PASSWORD }}
-        TF_VAR_mongo_user: ${{ secrets.MONGO_USER }}
+        TF_VAR_mongo_root_user: ${{ secrets.MONGO_USER }}
