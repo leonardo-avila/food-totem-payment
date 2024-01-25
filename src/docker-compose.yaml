@@ -1,7 +1,7 @@
 version: "1.0"
 
 services:
-    database:
+    payment-database:
         image: mongo
         restart: always
         environment:
@@ -9,18 +9,23 @@ services:
           MONGO_INITDB_ROOT_PASSWORD: rootPassword
         ports:
             - "27017:27017"
-        container_name: database
+        container_name: payment-database
         networks:
             - foodtotem-network
     payment-api:
-        # image: leonardoavila98/food-totem-payment:latest
         build:
           context: .
           dockerfile: Dockerfile
+        environment:
+          PaymentDatabaseSettings__ConnectionString: mongodb://rootUser:rootPassword@payment-database:27017
+          AccessToken: "<AccessToken>"
+          ExternalPosId: "<ExternalPosId>"
+          UserId: "<UserId>"
+          BaseUrl: "<BaseUrl>"
         ports:
-            - "8080:80"
+            - "3002:80"
         depends_on:
-            - database
+            - payment-database
         networks:
             - foodtotem-network
         restart: always

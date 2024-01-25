@@ -14,13 +14,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Update AppSettings
         uses: microsoft/variable-substitution@v1
         with:
           files: src/Adapters/Driver/FoodTotem.Payment.API/appsettings.json
         env:
-          PaymentDatabaseSettings.ConnectionString: ${{ secrets.DOCUMENT_DB_CONNECTION_STRING }}
+          AccessToken: ${{ secrets.MERCADO_PAGO_ACCESS_TOKEN }}
+          ExternalPosId: ${{ secrets.MERCADO_PAGO_EXTERNAL_POS_ID }}
+          UserId: ${{ secrets.MERCADO_PAGO_USER_ID }}
+          BaseUrl: ${{ secrets.MERCADO_PAGO_API_URL }}
       
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -35,3 +38,22 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+      - name: Terraform Init
+        run: terraform init
+  
+      - name: Terraform Plan
+        if: github.ref == 'refs/heads/main'
+        run: terraform plan
+        env:
+          TF_VAR_lab_account_id: ${{ secrets.LAB_ACCOUNT_ID }}
+          TF_VAR_lab_account_region: ${{ secrets.LAB_ACCOUNT_REGION }}
+          TF_VAR_food_totem_payment_image: ${{ secrets.PAYMENT_IMAGE }}
+          TF_VAR_mongo_image: ${{ secrets.MONGO_IMAGE }}
+          TF_VAR_mongo_root_password: ${{ secrets.MONGO_ROOT_PASSWORD }}
+          TF_VAR_mongo_user: ${{ secrets.MONGO_USER }}
