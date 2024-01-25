@@ -46,10 +46,12 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./infra/terraform
   
       - name: Terraform Plan
         if: github.ref == 'refs/heads/main'
         run: terraform plan
+        working-directory: ./infra/terraform
         env:
           TF_VAR_lab_account_id: ${{ secrets.LAB_ACCOUNT_ID }}
           TF_VAR_lab_account_region: ${{ secrets.LAB_ACCOUNT_REGION }}
