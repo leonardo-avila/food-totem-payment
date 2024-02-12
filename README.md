@@ -22,4 +22,4 @@ On the root folder:
     make run-services
   ```
 
-Be sure to update the environment variables for your Mercado Pago access token and etc. This variables are set on the `src/docker-compose.yaml` file.
+Be sure to update the environment variables for your Mercado Pago access token and etc. This variables are set on the `infra/local/docker-compose.yaml` file.
