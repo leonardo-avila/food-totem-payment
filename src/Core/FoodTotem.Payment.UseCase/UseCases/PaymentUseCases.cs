@@ -7,6 +7,8 @@ using FoodTotem.Payment.UseCase.InputViewModels;
 using FoodTotem.Payment.UseCase.OutputViewModels;
 using FoodTotem.Domain.Core;
 using FoodTotem.Payment.UseCase.Utils;
+using FoodTotem.Payment.Domain;
+using System.Text.Json;
 
 namespace FoodTotem.Payment.UseCase.UseCases
 {
@@ -16,11 +18,14 @@ namespace FoodTotem.Payment.UseCase.UseCases
         private readonly IPaymentRepository _paymentRepository;
         private readonly IMercadoPagoPaymentService _mercadoPagoPaymentService;
 
-        public PaymentUseCases(IPaymentService paymentService, IPaymentRepository paymentRepository, IMercadoPagoPaymentService mercadoPagoPaymentService)
+        private readonly IMessenger _messenger;
+
+        public PaymentUseCases(IPaymentService paymentService, IPaymentRepository paymentRepository, IMercadoPagoPaymentService mercadoPagoPaymentService, IMessenger messenger)
         {
             _paymentService = paymentService;
             _paymentRepository = paymentRepository;
             _mercadoPagoPaymentService = mercadoPagoPaymentService;
+            _messenger = messenger;
         }
 
         public async Task<PaymentViewModel> GetPaymentByOrderReference(string orderReference)
@@ -66,7 +71,7 @@ namespace FoodTotem.Payment.UseCase.UseCases
 
             var paymentData = await _mercadoPagoPaymentService.GetPaymentQRCode(paymentInfo);
 
-            var payment = new Pay(paymentData.in_store_order_id, paymentInfo.expiration_date, paymentData.qr_data, paymentInfo.total_amount);
+            var payment = new Pay(order.OrderReference, paymentInfo.expiration_date, paymentData.qr_data, paymentInfo.total_amount);
             
             var validPayment = _paymentService.IsValidPayment(payment);
 
@@ -88,8 +93,40 @@ namespace FoodTotem.Payment.UseCase.UseCases
                 OrderReference = payment.OrderReference,
                 ExpirationDate = payment.ExpirationDate,
                 QRCode = payment.QRCode,
-                Total = payment.Total
+                Total = payment.Total,
+                Status = payment.Status.ToString()
             };
+
+            return paymentViewModel;
+        }
+
+        public async Task<PaymentViewModel> UpdatePaymentStatus(PaymentStatusViewModel paymentStatus)
+        {
+            var payment = await _paymentRepository.Get(paymentStatus.Id) ?? throw new DomainException("Payment not found");
+
+            var status = paymentStatus.IsApproved ? PaymentStatus.Paid : PaymentStatus.Canceled;
+
+            payment.SetStatus(status);
+
+            await _paymentRepository.Update(payment);
+
+            var paymentViewModel = new PaymentViewModel
+            {
+                Id = payment.Id.ToString(),
+                OrderReference = payment.OrderReference,
+                ExpirationDate = payment.ExpirationDate,
+                QRCode = payment.QRCode,
+                Total = payment.Total,
+                Status = status.ToString()
+            };
+
+            if (status == PaymentStatus.Paid)
+            {
+                _messenger.Send(JsonSerializer.Serialize(paymentViewModel), "payment-paid-event");
+            }
+            else {
+                _messenger.Send(JsonSerializer.Serialize(paymentViewModel), "payment-canceled-event");
+            }
 
             return paymentViewModel;
         }

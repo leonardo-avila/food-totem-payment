@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\Driven\FoodTotem.Payment.Gateways.MongoDB\FoodTotem.Payment.Gateways.MongoDB.csproj" />
     <ProjectReference Include="..\..\Driven\FoodTotem.Payment.Gateways.Http\FoodTotem.Payment.Gateways.Http.csproj" />
     <ProjectReference Include="..\..\Driven\FoodTotem.Payment.Gateways.MercadoPago\FoodTotem.Payment.Gateways.MercadoPago.csproj" />
+    <ProjectReference Include="..\..\Driven\FoodTotem.Payment.Gateways.RabbitMQ\FoodTotem.Payment.Gateways.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>
