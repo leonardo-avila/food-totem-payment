@@ -8,13 +8,13 @@ services:
           MONGO_INITDB_ROOT_USERNAME: rootUser
           MONGO_INITDB_ROOT_PASSWORD: rootPassword
         ports:
-            - "27017:27017"
+            - "27019:27017"
         container_name: payment-database
         networks:
             - foodtotem-network
     payment-api:
         build:
-          context: .
+          context: ../../src
           dockerfile: Dockerfile
         environment:
           PaymentDatabaseSettings__ConnectionString: mongodb://rootUser:rootPassword@payment-database:27017

@@ -9,6 +9,9 @@ using FoodTotem.Payment.Gateways.MongoDB.Repositories;
 using FoodTotem.Payment.Gateways.Http;
 using FluentValidation;
 using FoodTotem.Payment.Gateways.MercadoPago;
+using FoodTotem.Demand.Gateways.RabbitMQ.PaymentMessages;
+using FoodTotem.Payment.Domain;
+using FoodTotem.Payment.Gateways.RabbitMQ;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -33,6 +36,9 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddCommunicationServices(this IServiceCollection services)
         {
             services.AddScoped<IHttpHandler, HttpHandler>();
+            services.AddScoped<IMessenger, Messenger>();
+
+            services.AddHostedService<DemandMessagesConsumer>();
 
             return services;
         }

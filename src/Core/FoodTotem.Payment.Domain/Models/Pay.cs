@@ -10,7 +10,8 @@ namespace FoodTotem.Payment.Domain.Models
         public string OrderReference { get; private set; }
         public string ExpirationDate { get; private set; }
         public string QRCode { get; private set; }
-        public double Total { get; private set; } 
+        public double Total { get; private set; }
+        public PaymentStatus Status { get; private set; } = PaymentStatus.Pending;
 
         public Pay(string orderReference, string expirationDate, string qRCode, double total)
         {
@@ -18,6 +19,11 @@ namespace FoodTotem.Payment.Domain.Models
             ExpirationDate = expirationDate;
             QRCode = qRCode;
             Total = total;
+        }
+
+        public void SetStatus(PaymentStatus status)
+        {
+            Status = status;
         }
     }
 }

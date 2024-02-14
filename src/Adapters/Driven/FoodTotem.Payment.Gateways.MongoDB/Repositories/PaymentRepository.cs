@@ -1,7 +1,6 @@
 using FoodTotem.Payment.Domain.Models;
 using FoodTotem.Payment.Domain.Repositories;
 using FoodTotem.Payment.Gateways.MongoDB.Setup;
-using FoodTotem.Domain.Core;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 

@@ -81,4 +81,27 @@ public class PaymentController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while creating payment.");
         }
     }
+
+    /// <summary>
+    /// Update payment
+    /// </summary>
+    /// <param name="paymentStatusViewModel"></param>
+    /// <returns>Returns the payment updated</returns>
+    /// <response code="500">Something wrong happened when trying to update payment.</response>
+    [HttpPut(Name = "Update payment")]
+    public async Task<ActionResult<PaymentViewModel>> UpdatePaymentStatus(PaymentStatusViewModel paymentStatusViewModel)
+    {
+        try
+        {
+            return Ok(await _paymentUseCases.UpdatePaymentStatus(paymentStatusViewModel));
+        }
+        catch (DomainException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating payment.");
+        }
+    }
 }
