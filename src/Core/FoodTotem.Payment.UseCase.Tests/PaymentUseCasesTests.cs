@@ -104,6 +104,54 @@ public class PaymentUseCasesTests
     }
 
     [TestMethod, TestCategory("UseCase - Payment")]
+    public async Task UpdatePayment_WithValidPayment_ShouldSuccess() {
+        MockGetPaymentByOrderReference(_paymentRepository);
+        MockGetPayment(_paymentRepository);
+        MockMercadoPagoQRCode();
+        MockValidatePayment();
+        MockSavePayment();
+
+        var paymentStatus = new PaymentStatusViewModel() {
+            Id = "1234",
+            IsApproved = true
+        };
+
+        var payment = await _paymentUseCases.UpdatePaymentStatus(paymentStatus);
+
+        _messenger.Received().Send(Arg.Any<string>(), "payment-paid-event");
+
+        Assert.IsNotNull(payment);
+        Assert.AreEqual("1234", payment.OrderReference);
+        Assert.AreEqual("Paid", payment.Status);
+        Assert.AreEqual("QRCode", payment.QRCode);
+        Assert.AreEqual(10.0, payment.Total);
+    }
+
+    [TestMethod, TestCategory("UseCase - Payment")]
+    public async Task UpdatePayment_WithInvalidPayment_ShouldCancelOrder() {
+        MockGetPaymentByOrderReference(_paymentRepository);
+        MockGetPayment(_paymentRepository);
+        MockMercadoPagoQRCode();
+        MockValidatePayment();
+        MockSavePayment();
+
+        var paymentStatus = new PaymentStatusViewModel() {
+            Id = "1234",
+            IsApproved = false
+        };
+
+        var payment = await _paymentUseCases.UpdatePaymentStatus(paymentStatus);
+
+        _messenger.Received().Send(Arg.Any<string>(), "payment-cancelled-event");
+
+        Assert.IsNotNull(payment);
+        Assert.AreEqual("1234", payment.OrderReference);
+        Assert.AreEqual("Cancelled", payment.Status);
+        Assert.AreEqual("QRCode", payment.QRCode);
+        Assert.AreEqual(10.0, payment.Total);
+    }
+
+    [TestMethod, TestCategory("UseCase - Payment")]
     public void ProducePaymentInformation_WithOrder_ShouldSucceed() {
         var order = new OrderViewModel() {
             OrderReference = "1234",
@@ -135,6 +183,12 @@ public class PaymentUseCasesTests
     {
         var payment = new Pay("1234", "2023-01-02", "QRCode", 10.0);
         paymentRepository.GetPayment("1234").Returns(payment);
+    }
+
+    private static void MockGetPayment(IPaymentRepository paymentRepository)
+    {
+        var payment = new Pay("1234", "2023-01-02", "QRCode", 10.0);
+        paymentRepository.Get("1234").Returns(payment);
     }
 
     private static void MockGetAllPayments(IPaymentRepository paymentRepository)
