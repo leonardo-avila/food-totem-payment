@@ -1,4 +1,5 @@
 using FoodTotem.Domain.Core;
+using FoodTotem.Payment.Domain;
 using FoodTotem.Payment.Domain.Models;
 using FoodTotem.Payment.Domain.Ports;
 using FoodTotem.Payment.Domain.Repositories;
@@ -18,12 +19,13 @@ public class PaymentUseCasesTests
     private readonly IPaymentService _paymentService = Substitute.For<IPaymentService>();
     private readonly IPaymentRepository _paymentRepository = Substitute.For<IPaymentRepository>();
     private readonly IMercadoPagoPaymentService _mercadoPagoPaymentService = Substitute.For<IMercadoPagoPaymentService>();
+    private readonly IMessenger _messenger = Substitute.For<IMessenger>();
     private IPaymentUseCases _paymentUseCases;
 
     [TestInitialize]
     public void Initialize()
     {
-       _paymentUseCases = new PaymentUseCases(_paymentService, _paymentRepository, _mercadoPagoPaymentService);
+       _paymentUseCases = new PaymentUseCases(_paymentService, _paymentRepository, _mercadoPagoPaymentService, _messenger);
     }
 
     [TestMethod, TestCategory("UseCase - Payment")]
