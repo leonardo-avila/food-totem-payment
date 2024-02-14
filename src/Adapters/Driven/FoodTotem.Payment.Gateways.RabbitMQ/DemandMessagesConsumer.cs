@@ -12,13 +12,13 @@ namespace FoodTotem.Demand.Gateways.RabbitMQ.PaymentMessages
     public class DemandMessagesConsumer : BackgroundService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        private IPaymentUseCases _paymentUseCases;
+        private IPaymentUseCases? _paymentUseCases;
         public DemandMessagesConsumer(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await Task.Run(() => 
             {
@@ -28,7 +28,7 @@ namespace FoodTotem.Demand.Gateways.RabbitMQ.PaymentMessages
 
                 messenger.Consume("generate-payment-event",
                     (e) => ProccessMessage(this, (BasicDeliverEventArgs)e));
-            }, cancellationToken);
+            }, stoppingToken);
         }
 
 

@@ -4,6 +4,6 @@ namespace FoodTotem.Payment.Domain.Models
     {
         Pending,
         Paid,
-        Canceled
+        Cancelled
     }
 }

@@ -104,7 +104,7 @@ namespace FoodTotem.Payment.UseCase.UseCases
         {
             var payment = await _paymentRepository.Get(paymentStatus.Id) ?? throw new DomainException("Payment not found");
 
-            var status = paymentStatus.IsApproved ? PaymentStatus.Paid : PaymentStatus.Canceled;
+            var status = paymentStatus.IsApproved ? PaymentStatus.Paid : PaymentStatus.Cancelled;
 
             payment.SetStatus(status);
 
@@ -125,7 +125,7 @@ namespace FoodTotem.Payment.UseCase.UseCases
                 _messenger.Send(JsonSerializer.Serialize(paymentViewModel), "payment-paid-event");
             }
             else {
-                _messenger.Send(JsonSerializer.Serialize(paymentViewModel), "payment-canceled-event");
+                _messenger.Send(JsonSerializer.Serialize(paymentViewModel), "payment-cancelled-event");
             }
 
             return paymentViewModel;
