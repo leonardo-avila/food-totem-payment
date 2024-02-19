@@ -30,6 +30,10 @@ data "aws_subnets" "default" {
   }
 }
 
+data "aws_lb" "rabbitmq_lb" {
+  name = "rabbitmq-lb"
+}
+
 resource "aws_lb_target_group" "payment-mongodb-tg" {
   name     = "payment-mongodb"
   port     = 27017
@@ -159,6 +163,18 @@ resource "aws_ecs_task_definition" "food-totem-payment-task" {
             {
                 "name": "PaymentDatabaseSettings__ConnectionString",
                 "value": join("", ["mongodb://", var.mongo_root_user, ":", var.mongo_root_password, "@", aws_lb.payment-mongodb-lb.dns_name, ":27017"])
+            },
+            {
+                "name": "RabbitMQ__HostName",
+                "value": data.aws_lb.rabbitmq_lb.dns_name
+            },
+            {
+                "name": "RabbitMQ__UserName",
+                "value": var.rabbitMQ_user
+            },
+            {
+                "name": "RabbitMQ__Password",
+                "value": var.rabbitMQ_password
             }
         ],
         "cpu": 256,
