@@ -77,6 +77,7 @@ namespace FoodTotem.Payment.UseCase.UseCases
 
             if (!validPayment)
             {
+                SendPaymentFailureEvent(order.OrderReference);
                 throw new DomainException("Invalid payment");
             }
 
@@ -84,6 +85,7 @@ namespace FoodTotem.Payment.UseCase.UseCases
 
             if (!succesfullySaved)
             {
+                SendPaymentFailureEvent(order.OrderReference);
                 throw new DomainException("An error occurred while saving the payment");
             }
 
@@ -98,6 +100,13 @@ namespace FoodTotem.Payment.UseCase.UseCases
             };
 
             return paymentViewModel;
+        }
+
+        private void SendPaymentFailureEvent(string orderReference)
+        {
+            _messenger.Send(JsonSerializer.Serialize(new PaymentFailureViewModel() {
+                OrderReference = orderReference
+            }), "payment-failure-event");
         }
 
         public async Task<PaymentViewModel> UpdatePaymentStatus(PaymentStatusViewModel paymentStatus)
