@@ -81,7 +81,9 @@ namespace FoodTotem.Payment.Gateways.Http
                 {
                     request.Headers.Add(header.Key, header.Value);
                 }
-            }
+                headers.Add("Content-Type", "application/json");
+                headers.Add("X-Content-Type-Options", "nosniff");
+            }   
         }
     }
 }
