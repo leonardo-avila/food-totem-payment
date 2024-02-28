@@ -22,6 +22,10 @@ services:
           ExternalPosId: "<ExternalPosId>"
           UserId: "<UserId>"
           BaseUrl: "<BaseUrl>"
+          RabbitMQ__HostName: food-totem-mq
+          RabbitMQ__Port: 5672
+          RabbitMQ__Username: guest
+          RabbitMQ__Password: guest
         ports:
             - "3002:80"
         depends_on:
