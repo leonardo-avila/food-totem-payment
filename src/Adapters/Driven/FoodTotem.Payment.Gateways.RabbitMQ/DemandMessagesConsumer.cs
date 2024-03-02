@@ -26,7 +26,7 @@ namespace FoodTotem.Demand.Gateways.RabbitMQ.PaymentMessages
                 var messenger = scope.ServiceProvider.GetRequiredService<IMessenger>();
                 _paymentUseCases = scope.ServiceProvider.GetRequiredService<IPaymentUseCases>();
 
-                messenger.Consume("generate-payment-event",
+                messenger.Consume("order-created-event",
                     (e) => ProccessMessage(this, (BasicDeliverEventArgs)e));
             }, stoppingToken);
         }
